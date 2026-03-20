@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>寶可夢數字大冒險 / Pokémon Number Adventure</title>
+    <link rel="icon" sizes="180x180" href="./icon.png" type="image/png" />
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="./icon.png" type="image/png" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <audio id="sound-success" src="success.mp3"></audio>
+    <audio id="sound-fail" src="fail.mp3"></audio>
+    <audio id="sound-scan" src="scan.mp3"></audio>
+
+    <button id="start-btn">
+        <p>開始遊戲 / Start Game</p>
+        <p>(啟動感應 / Enable NFC)</p>
+    </button>
+
+    <div id="top-bar">倒數 / Time: <span id="timer">30</span> 秒/s</div>
+    
+    <div id="game-area">
+        <div id="pokemon-name">
+            <p id="poke-name-zh">寶可夢名稱</p>
+            <p id="poke-name-en">Pokemon Name</p>
+        </div>
+        
+        <img id="pokemon-img" src="" alt="Pokemon">
+    </div>
+
+    <div id="message-overlay">
+        <div id="message-box">
+            <p id="msg-zh"></p>
+            <p id="msg-en"></p>
+        </div>
+    </div>
+
+    <div id="equation-board">
+        <div id="num1" class="num-box empty">?</div>
+        <span>+</span>
+        <div id="num2" class="num-box empty">?</div>
+        <span>= 10</span>
+    </div>
+
+    <div id="admin-controls">
+        <button class="admin-btn" id="btn-pause">暫停遊戲 / Pause</button>
+        <button class="admin-btn" id="btn-reset-time">重置時間 / Reset Time</button>
+        <button class="admin-btn" id="btn-reset-next">換下一隻 / Next</button>
+    </div>
+
+        <script src="./script.js"></script>
+</body>
+</html>

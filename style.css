@@ -1,0 +1,218 @@
+/* UI 介面設計 */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('forest-bg.png');
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.6s ease-in-out;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Comic Sans MS', '微軟正黑體', sans-serif;
+    overflow: hidden;
+    touch-action: none;
+}
+
+#top-bar {
+    margin-top: 3vh;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff2d26;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    text-align: center;
+    border: 3px solid #ff2d26;
+}
+
+/* 遊戲區域：新增 name 區塊 */
+#game-area {
+    flex-grow: 1;
+    display: grid;
+    grid-template-areas:
+        "name"
+        "pokemon";
+    grid-template-rows: auto 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+/* 寶可夢名牌設計 */
+#pokemon-name {
+    grid-area: name;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 10px 40px;
+    border-radius: 20px;
+    border: 4px solid #3b4cca;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    margin-top: 10px;
+}
+
+#poke-name-zh {
+    font-size: 38px;
+    font-weight: bold;
+    color: #3b4cca;
+    margin: 0;
+}
+
+#poke-name-en {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffcb05;
+    -webkit-text-stroke: 1px #3b4cca;
+    margin: 0;
+}
+
+#pokemon-img {
+    grid-area: pokemon;
+    max-height: 50vh;
+    max-width: 90vw;
+    transition: all 0.5s ease;
+}
+
+.captured-white { filter: brightness(0) invert(1); }
+.captured-hide { transform: scale(0); opacity: 0; }
+
+#message-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+#message-box {
+    min-width: 260px;
+    max-width: 80vw;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 4px 4px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 20px 36px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --animate-duration: 0.7s;
+}
+
+#message-box p {
+    margin: 6px 0;
+}
+
+/* --- 大幅強化的算式板設計 --- */
+#equation-board {
+    margin-bottom: 5vh;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 80px;
+    font-weight: bold;
+    color: #333;
+    border: 8px solid #ffcb05;
+    box-shadow: 0 0 25px rgba(255, 203, 5, 0.9), 0 8px 15px rgba(0,0,0,0.4);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* 讓小孩填數字的框框 */
+.num-box {
+    display: inline-block;
+    min-width: 90px;
+    height: 100px;
+    line-height: 100px;
+    background-color: #fff;
+    border: 5px dashed #ccc;
+    border-radius: 20px;
+    color: #d9534f;
+    font-size: 80px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+/* 未填寫時的閃爍動畫，吸引注意力 */
+@keyframes pulse-box {
+    0% { transform: scale(1); border-color: #ccc; box-shadow: 0 0 0 rgba(0,0,0,0); }
+    50% { transform: scale(1.08); border-color: #ff9900; background-color: #fff8e1; box-shadow: 0 0 15px rgba(255, 153, 0, 0.6); }
+    100% { transform: scale(1); border-color: #ccc; box-shadow: 0 0 0 rgba(0,0,0,0); }
+}
+
+.num-box.empty {
+    animation: pulse-box 1.5s infinite;
+}
+
+/* 填入數字後變成綠色確認狀態 */
+.num-box.filled {
+    background-color: #e8f5e9;
+    border: 5px solid #4caf50;
+    color: #2e7d32;
+    animation: none;
+    transform: scale(1);
+}
+.num-box.wrong {
+    background-color: #ffebee;
+    border: 5px solid #e53935;
+    color: #b71c1c;
+    animation: none;
+    transform: scale(1);
+}
+
+#start-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    font-size: 30px;
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+#admin-controls {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+    display: none;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#admin-controls:hover { opacity: 1; }
+
+.admin-btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    background: #5bc0de;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-btn:last-child { margin-bottom: 0; }
