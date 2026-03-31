@@ -99,43 +99,45 @@ function getRandomPokemon() {
 function resetGame(changePokemon = true) {
     clearInterval(timerInterval);
     clearTimeout(gameTimeout);
-
+    
     timeLeft = 30;
     uiTimer.innerText = timeLeft;
     currentNum1 = null;
     currentNum2 = null;
-    hasStartedScanning = false; // 重置狀態：等待第一次感應
-
-    uiNum1.innerText = '?';
-    uiNum1.className = 'num-box empty';
-    uiNum2.innerText = '?';
-    uiNum2.className = 'num-box empty';
-
-    uiPokemon.style.transition = 'none';
-
+    
+    uiNum1.innerText = "?";
+    uiNum1.className = "num-box empty";
+    uiNum2.innerText = "?";
+    uiNum2.className = "num-box empty";
+    
+    // --- 修改點 1：換圖時，確保圖片還是處於隱藏狀態 ---
     if (changePokemon) {
         const newPoke = getRandomPokemon();
         uiPokemon.src = newPoke.src;
         uiNameZh.innerText = newPoke.zh;
         uiNameEn.innerText = newPoke.en;
+        
+        // 關鍵：延遲一小段時間再把圖片「放出來」
+        // 這 100ms 是給瀏覽器換 src 的緩衝時間
+        setTimeout(() => {
+            uiPokemon.style.transition = 'none';
+            uiPokemon.classList.remove('captured-white', 'captured-hide');
+            void uiPokemon.offsetWidth; // 強制重繪
+            uiPokemon.style.transition = 'all 0.5s ease';
+        },220); 
 
-        // 根據寶可夢專屬屬性更換背景圖
-        document.body.style.backgroundImage = `url('${newPoke.bg}')`;
+    } else {
+        // 如果不需要換下一隻（例如重置時間），則直接顯示
+        uiPokemon.style.transition = 'none';
+        uiPokemon.classList.remove('captured-white', 'captured-hide');
+        void uiPokemon.offsetWidth;
+        uiPokemon.style.transition = 'all 0.5s ease';
     }
 
-    uiPokemon.classList.remove('captured-white', 'captured-hide');
-
-    void uiPokemon.offsetWidth;
-
-    uiPokemon.style.transition = 'all 0.5s ease';
-
     uiMessage.style.display = 'none';
-    uiMessageBox.className = '';
-    uiMessageBox.id = 'message-box';
-
+    
     isPlaying = true;
-    btnPause.innerText = '暫停遊戲 / Pause';
-    // 移除 startTimer(); 讓計時器等到第一次感應才啟動
+    btnPause.innerText = "暫停遊戲 / Pause";
 }
 
 function startTimer() {
